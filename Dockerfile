@@ -28,9 +28,11 @@ RUN cd /home && wget http://downloads.sourceforge.net/project/boost/boost/1.60.0
 RUN cd /home \
   && git clone https://github.com/pblischak/ppgtk.git
 
-RUN cd /home/ppgtk \
+RUN cd /home/ppgtk/src \
   && make linux
+
+RUN mkdir /home/analysis && cd /home/analysis
 
 ENV PATH /home/ppgtk/bin:$PATH
 
-CMD ["bash"]
+CMD bash
