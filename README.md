@@ -7,19 +7,19 @@
 docker pull pblischak/ppgtk
 ```
 
-## Creating a Virtual Machine with access to multiple cores
+## Creating a Docker Machine with access to multiple cores
 
 ```
-docker-machine --driver virtualbox --virtualbox-cpu-count <#cpus> multicore
+docker-machine create --driver virtualbox --virtualbox-cpu-count <#cpus> <new-machine-name>
 ```
 
-So, for example, if you wanted to use 4 CPUs you would run:
+So, for example, if you wanted to create a new machine called `multicore` with access to 4 CPUs you would run:
 
 ```
-docker-machine --driver virtualbox --virtualbox-cpu-count 4 multicore
+docker-machine create --driver virtualbox --virtualbox-cpu-count 4 multicore
 ```
 
-After you run this part of the output will tell you to run this command:
+After you run this, part of the output will tell you to run this command:
 
 ```
 docker-machine env multicore
@@ -34,6 +34,8 @@ eval $(docker-machine env multicore)
 
 ## Running the PPGtk image in a container
 
+You can share a local folder with the PPGtk image using the `-v` flag. The `$(pwd)` will choose the current working directory as the one to share, so place all of your data and configuration files within this folder.
+
 ```
-docker run -it -v /Users/paulblischak/ppgtk-analyses/run1:/home/analysis pblischak/ppgtk
+docker run -it -v $(pwd):/home/analysis pblischak/ppgtk
 ```
